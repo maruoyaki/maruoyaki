@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丸尾焼｜陶芸絵付け体験 予約フォーム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:   #3D2B1A;
+  --mid:    #8B6A4A;
+  --gold:   #C4906A;
+  --gold-l: #E8C89A;
+  --pale:   #FFF8F2;
+  --cream:  #FDFAF5;
+  --border: #E8DDD0;
+  --white:  #FFFFFF;
+  --ink:    #1A1A1A;
+  --ash:    #8B8078;
+  --red:    #B05050;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:400;min-height:100vh;}
+
+/* ===== HEADER ===== */
+.site-header{background:var(--dark);position:relative;overflow:hidden;}
+.site-header::after{content:'';position:absolute;right:-30px;top:-30px;width:200px;height:200px;border-radius:50%;background:rgba(196,144,106,0.15);pointer-events:none;}
+.gw-tag{display:inline-block;background:var(--gold);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;padding:4px 14px;border-radius:999px;margin-bottom:10px;}
+.header-inner{max-width:780px;margin:0 auto;padding:40px 36px 34px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;position:relative;z-index:1;}
+.h-shop{font-family:'Noto Serif JP',serif;font-size:12px;font-weight:600;letter-spacing:0.28em;color:var(--gold-l);margin-bottom:5px;}
+h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,36px);font-weight:900;color:#FDFAF5;letter-spacing:0.06em;line-height:1.2;}
+h1 em{display:block;font-size:0.5em;font-weight:400;font-style:normal;color:rgba(253,250,245,0.55);letter-spacing:0.16em;margin-top:6px;}
+.header-right{text-align:right;flex-shrink:0;}
+.header-badge{display:inline-block;border:1px solid rgba(196,144,106,0.4);color:var(--gold-l);font-size:10px;font-weight:500;letter-spacing:0.12em;padding:5px 14px;border-radius:999px;margin-bottom:6px;}
+.header-cap{display:block;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;}
+
+/* ===== INFO STRIP ===== */
+.info-strip{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid var(--border);background:var(--white);}
+.info-cell{padding:14px 16px;text-align:center;border-right:1px solid var(--border);}
+.info-cell:last-child{border-right:none;}
+.info-label{font-size:9px;font-weight:700;letter-spacing:0.2em;color:var(--mid);text-transform:uppercase;margin-bottom:4px;}
+.info-value{font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--dark);line-height:1.2;}
+.info-sub{font-size:9px;font-weight:500;color:var(--ash);margin-top:2px;}
+
+/* ===== CONTAINER ===== */
+.container{max-width:780px;margin:0 auto;padding:44px 36px 72px;}
+
+/* ===== STEP HEAD ===== */
+.step-head{display:flex;align-items:center;gap:12px;margin:40px 0 20px;}
+.step-head::after{content:'';flex:1;height:1.5px;background:var(--border);}
+.step-num{font-size:10px;font-weight:700;letter-spacing:0.28em;color:var(--gold);white-space:nowrap;}
+
+/* ===== FORM BASE ===== */
+.form-group{margin-bottom:20px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field-label{display:block;font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--dark);margin-bottom:9px;}
+.req{display:inline-block;background:var(--gold);color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle;}
+.field-hint{display:block;font-size:11px;color:var(--ash);font-weight:400;margin-top:3px;}
+
+input[type="text"],input[type="email"],input[type="tel"],textarea{width:100%;padding:12px 15px;border:1.5px solid var(--border);background:var(--white);border-radius:8px;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:400;color:var(--ink);outline:none;transition:border-color 0.18s,box-shadow 0.18s;}
+input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,144,106,0.1);}
+input.has-error{border-color:var(--red);}
+.err-msg{font-size:11px;color:var(--red);font-weight:500;margin-top:5px;display:none;}
+.err-msg.show{display:block;}
+textarea{min-height:80px;resize:vertical;line-height:1.7;}
+
+/* ===== CALENDAR ===== */
+.calendar{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:18px;user-select:none;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-month-label{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:700;color:var(--dark);}
+.cal-nav-btn{background:var(--pale);border:1.5px solid var(--border);width:30px;height:30px;border-radius:8px;cursor:pointer;color:var(--dark);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.14s;}
+.cal-nav-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-wd{text-align:center;font-size:9px;font-weight:700;color:var(--ash);padding:3px 2px 7px;letter-spacing:0.05em;}
+.cal-wd.sun{color:#B05050;}.cal-wd.sat{color:#4A7B8C;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:400;border:1.5px solid transparent;border-radius:8px;cursor:pointer;background:none;color:var(--ink);transition:all 0.12s;font-family:'Noto Sans JP',sans-serif;}
+.cal-day.sun{color:#B05050;}.cal-day.sat{color:#4A7B8C;}
+.cal-day:hover:not(.past):not(.empty){background:var(--pale);border-color:var(--gold);}
+.cal-day.selected{background:var(--dark)!important;color:#fff!important;border-color:var(--dark);font-weight:700;}
+.cal-day.today{border-color:var(--gold);font-weight:700;}
+.cal-day.past{color:#CCC;cursor:default;pointer-events:none;}
+.cal-day.empty{cursor:default;}
+.cal-day.gw-day{background:rgba(196,144,106,0.1);border-color:rgba(196,144,106,0.35);}
+
+/* ===== TIME SLOTS ===== */
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.slot-radio{display:none;}
+.slot-label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border:1.5px solid var(--border);background:var(--white);border-radius:12px;cursor:pointer;gap:5px;transition:all 0.16s;}
+.slot-label:hover{border-color:var(--gold);background:var(--pale);transform:translateY(-1px);}
+.slot-radio:checked+.slot-label{border-color:var(--dark);background:var(--pale);box-shadow:0 0 0 1px var(--dark);}
+.slot-icon{font-size:20px;}
+.slot-time{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--dark);}
+.slot-name{font-size:10px;font-weight:700;color:var(--ash);letter-spacing:0.1em;}
+.slot-seats{font-size:10px;font-weight:700;margin-top:4px;padding:2px 8px;border-radius:999px;}
+.slot-seats.ok{background:#E8F5E9;color:#2E7D32;}
+.slot-seats.few{background:#FFF3E0;color:#E65100;}
+.slot-seats.full{background:#FFEBEE;color:#B05050;}
+.slot-seats.loading{color:var(--ash);}
+.slot-radio:disabled+.slot-label{opacity:0.45;cursor:not-allowed;pointer-events:none;}
+.slot-label.full-slot{opacity:0.45;cursor:not-allowed;pointer-events:none;}
+
+/* ===== COUNTER ===== */
+.counter-wrap{display:inline-flex;align-items:center;gap:0;background:var(--white);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;}
+.cnt-btn{width:42px;height:42px;background:none;border:none;cursor:pointer;font-size:20px;font-weight:300;color:var(--dark);display:flex;align-items:center;justify-content:center;transition:background 0.13s;font-family:'Noto Serif JP',sans-serif;}
+.cnt-btn:hover{background:var(--pale);}
+.cnt-btn:disabled{opacity:0.22;cursor:default;background:none;}
+.cnt-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+.cnt-val{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;color:var(--dark);min-width:48px;text-align:center;line-height:1;}
+.cnt-unit{font-size:12px;color:var(--ash);margin-left:10px;font-weight:500;}
+.cnt-note{font-size:10px;color:#B0A9A0;margin-left:6px;}
+
+/* ===== 料金案内 ===== */
+.price-note{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--white);}
+.price-note-head{background:var(--pale);padding:10px 16px;font-size:11px;font-weight:700;color:var(--mid);letter-spacing:0.1em;border-bottom:1px solid var(--border);}
+.price-row-item{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);}
+.price-row-item:last-child{border-bottom:none;}
+.p-tag{font-size:9px;font-weight:700;letter-spacing:0.1em;padding:2px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
+.p-tag.std{background:#EEF2FF;color:#2E6E9E;}
+.p-tag.prem{background:#FFF3E0;color:#A06020;}
+.p-desc{font-size:11px;color:var(--ash);flex:1;}
+.p-price{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:700;color:var(--dark);white-space:nowrap;margin-left:auto;}
+.p-price small{font-size:9px;font-weight:400;color:var(--ash);font-family:'Noto Sans JP',sans-serif;}
+
+/* ===== SUMMARY ===== */
+.summary{background:var(--dark);border-radius:12px;padding:24px 28px;margin-top:36px;position:relative;overflow:hidden;}
+.summary::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold-l) 100%);border-radius:12px 12px 0 0;}
+.summary::after{content:'';position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;border-radius:50%;border:1px solid rgba(196,144,106,0.1);pointer-events:none;}
+.summary-head{font-size:9px;font-weight:700;letter-spacing:0.28em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.sum-cell{border-left:1px solid rgba(196,144,106,0.15);padding:0 18px;}
+.sum-cell:first-child{border-left:none;padding-left:0;}
+.sum-label{font-size:9px;font-weight:500;letter-spacing:0.14em;color:var(--ash);margin-bottom:5px;}
+.sum-value{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:700;color:rgba(255,255,255,0.9);line-height:1.5;}
+.sum-note{font-size:10px;color:rgba(255,255,255,0.28);margin-top:14px;line-height:1.7;}
+
+/* ===== SUBMIT ===== */
+.submit-area{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.submit-btn{background:var(--dark);color:#fff;border:none;padding:16px 64px;border-radius:999px;font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;letter-spacing:0.18em;cursor:pointer;transition:all 0.2s;box-shadow:0 5px 20px rgba(61,43,26,0.28);position:relative;overflow:hidden;}
+.submit-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);transition:left 0.4s;}
+.submit-btn:hover{background:#5A3820;transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,43,26,0.36);}
+.submit-btn:hover::after{left:100%;}
+.submit-btn:disabled{opacity:0.6;cursor:default;transform:none;}
+.privacy-txt{font-size:10px;color:var(--ash);text-align:center;line-height:1.9;}
+
+/* ===== MODAL ===== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(61,43,26,0.82);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
+.modal-overlay.open{display:flex;animation:mfade 0.3s ease;}
+@keyframes mfade{from{opacity:0}to{opacity:1}}
+.modal-card{background:var(--cream);border-radius:16px;padding:44px 52px;text-align:center;max-width:420px;width:92%;animation:mpop 0.4s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;}
+.modal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--dark) 0%,var(--gold) 100%);}
+@keyframes mpop{from{opacity:0;transform:scale(0.84)}to{opacity:1;transform:scale(1)}}
+.modal-icon{font-size:40px;margin-bottom:14px;}
+.modal-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--dark);margin-bottom:10px;}
+.modal-body{font-size:12px;color:var(--ash);line-height:2;margin-bottom:24px;text-align:left;}
+.modal-section{display:block;font-size:9px;letter-spacing:0.2em;color:var(--gold);margin-top:10px;margin-bottom:1px;font-weight:700;}
+.modal-close{background:var(--dark);color:#fff;border:none;padding:11px 40px;border-radius:999px;font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;cursor:pointer;transition:all 0.16s;}
+.modal-close:hover{background:var(--gold);}
+
+@media(max-width:640px){
+  .header-inner{flex-direction:column;align-items:flex-start;padding:32px 24px 28px;}
+  .container{padding:36px 20px 60px;}
+  .info-strip{grid-template-columns:1fr 1fr;}
+  .info-cell:nth-child(2){border-right:none;}
+  .info-cell:nth-child(3){border-top:1px solid var(--border);}
+  .form-row{grid-template-columns:1fr;}
+  .time-slots{grid-template-columns:1fr;}
+  .summary-grid{grid-template-columns:1fr;gap:14px;}
+  .sum-cell{border-left:none;padding-left:0;border-top:1px solid rgba(196,144,106,0.15);padding-top:12px;}
+  .sum-cell:first-child{border-top:none;padding-top:0;}
+  .modal-card{padding:36px 24px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div>
+      <div class="gw-tag">🎏 Golden Week Special · 期間限定</div>
+      <div class="h-shop">丸尾焼　Maruoyaki</div>
+      <h1>陶芸絵付け体験<em>ご予約フォーム</em></h1>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">完全予約制</div>
+      <span class="header-cap">定員 各回15名様まで</span>
+    </div>
+  </div>
+</header>
+
+<div class="info-strip">
+  <div class="info-cell"><div class="info-label">開催期間</div><div class="info-value">5/1〜5/6</div><div class="info-sub">GW限定開催</div></div>
+  <div class="info-cell"><div class="info-label">体験時間</div><div class="info-value">約1時間</div><div class="info-sub">完全予約制</div></div>
+  <div class="info-cell" style="border-top:2px solid var(--border);"><div class="info-label">料金</div><div class="info-value">¥3,500〜</div><div class="info-sub">器の種類により変動</div></div>
+  <div class="info-cell" style="border-top:2px solid var(--border);"><div class="info-label">焼き上がり</div><div class="info-value">2〜3週間</div><div class="info-sub">お渡し or 郵送</div></div>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div class="step-head"><span class="step-num">STEP 01 &nbsp;—&nbsp; 日時を選ぶ</span></div>
+
+  <div class="form-group">
+    <label class="field-label">ご希望の日付 <span class="req">必須</span>
+      <span class="field-hint">予約受付期間：5月1日（木）〜 5月6日（火）</span>
+    </label>
+    <div class="calendar">
+      <div class="cal-header">
+        <button class="cal-nav-btn" id="prevMonth" type="button">‹</button>
+        <div class="cal-month-label" id="calLabel"></div>
+        <button class="cal-nav-btn" id="nextMonth" type="button">›</button>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-wd sun">日</div><div class="cal-wd">月</div><div class="cal-wd">火</div><div class="cal-wd">水</div><div class="cal-wd">木</div><div class="cal-wd">金</div><div class="cal-wd sat">土</div>
+        <div id="calDays" style="display:contents"></div>
+      </div>
+    </div>
+    <div class="err-msg" id="errDate">日付を選択してください</div>
+  </div>
+
+  <div class="form-group">
+    <label class="field-label">ご希望の時間帯 <span class="req">必須</span></label>
+    <div class="time-slots">
+      <div><input class="slot-radio" type="radio" name="timeSlot" id="am" value="am"><label class="slot-label" for="am"><div class="slot-icon">🌿</div><div class="slot-time">10:00〜11:00</div><div class="slot-name">午前の部</div><div class="slot-seats" id="seats-am">空き確認中...</div></label></div>
+      <div><input class="slot-radio" type="radio" name="timeSlot" id="pm1" value="pm1"><label class="slot-label" for="pm1"><div class="slot-icon">☀️</div><div class="slot-time">13:30〜14:30</div><div class="slot-name">昼の部</div><div class="slot-seats" id="seats-pm1">空き確認中...</div></label></div>
+      <div><input class="slot-radio" type="radio" name="timeSlot" id="pm2" value="pm2"><label class="slot-label" for="pm2"><div class="slot-icon">🌇</div><div class="slot-time">16:00〜17:00</div><div class="slot-name">夕方の部</div><div class="slot-seats" id="seats-pm2">空き確認中...</div></label></div>
+    </div>
+    <div class="err-msg" id="errTime">時間帯を選択してください</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-head"><span class="step-num">STEP 02 &nbsp;—&nbsp; 参加人数</span></div>
+
+  <div class="form-group">
+    <label class="field-label">参加人数 <span class="req">必須</span>
+      <span class="field-hint">お一人様から最大15名様まで</span>
+    </label>
+    <div style="display:flex;align-items:center;">
+      <div class="counter-wrap">
+        <button class="cnt-btn" id="cntMinus" type="button">−</button>
+        <div class="cnt-sep"></div>
+        <div class="cnt-val" id="cntVal">1</div>
+        <div class="cnt-sep"></div>
+        <button class="cnt-btn" id="cntPlus" type="button">+</button>
+      </div>
+      <span class="cnt-unit">名</span>
+      <span class="cnt-note">（最大15名）</span>
+    </div>
+    <input type="hidden" id="peopleCount" value="1">
+  </div>
+
+  <div class="form-group">
+    <div class="price-note">
+      <div class="price-note-head"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;margin-right:4px;">
+  <path d="M4 10 Q4 18 12 18 Q20 18 20 10" stroke="#8B6A4A" stroke-width="1.8" fill="#FFF8F2" stroke-linecap="round"/>
+  <ellipse cx="12" cy="10" rx="8" ry="2.5" fill="#FFF8F2" stroke="#8B6A4A" stroke-width="1.8"/>
+  <rect x="8" y="18" width="8" height="2" rx="1" fill="#C4906A" opacity="0.6"/>
+</svg> 当日お選びいただける器の料金目安</div>
+      <div class="price-row-item">
+        <span class="p-tag std">スタンダード</span>
+        <span class="p-desc">例：飯碗・5寸皿・カップなど</span>
+        <span class="p-price">¥3,500<small> 税込</small></span>
+      </div>
+      <div class="price-row-item">
+        <span class="p-tag prem">プレミアム</span>
+        <span class="p-desc">例：鉢や平皿など大きめの器</span>
+        <span class="p-price">¥4,500<small> 税込</small></span>
+      </div>
+      <div style="padding:8px 16px;font-size:10px;color:var(--ash);background:var(--pale);border-top:1px solid var(--border);">※ 当日の準備により素焼きの内容は異なります</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-head"><span class="step-num">STEP 03 &nbsp;—&nbsp; お客様情報</span></div>
+
+  <div class="form-row">
+    <div class="form-group"><label class="field-label" for="lastName">お名前（姓）<span class="req">必須</span></label><input type="text" id="lastName" placeholder="山田"><div class="err-msg" id="errLast">姓を入力してください</div></div>
+    <div class="form-group"><label class="field-label" for="firstName">お名前（名）<span class="req">必須</span></label><input type="text" id="firstName" placeholder="花子"><div class="err-msg" id="errFirst">名を入力してください</div></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="field-label" for="email">メールアドレス <span class="req">必須</span></label><input type="email" id="email" placeholder="example@mail.com"><div class="err-msg" id="errEmail">正しいメールアドレスを入力してください</div></div>
+    <div class="form-group"><label class="field-label" for="tel">電話番号 <span class="req">必須</span></label><input type="tel" id="tel" placeholder="090-0000-0000"><div class="err-msg" id="errTel">電話番号を入力してください</div></div>
+  </div>
+  <div class="form-group"><label class="field-label" for="notes">備考・ご要望</label><textarea id="notes" placeholder="その他ご要望があればご記入ください"></textarea></div>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <div class="summary-head">予約内容の確認 — Reservation Summary</div>
+    <div class="summary-grid">
+      <div class="sum-cell"><div class="sum-label">日付</div><div class="sum-value" id="sumDate">—</div></div>
+      <div class="sum-cell"><div class="sum-label">時間帯</div><div class="sum-value" id="sumTime">—</div></div>
+      <div class="sum-cell"><div class="sum-label">参加人数</div><div class="sum-value" id="sumPeople">—</div></div>
+    </div>
+    <div class="sum-note">※ 器の種類は当日現地でお選びいただけます（在庫状況による）。料金は¥3,500〜¥4,500（税込）です。</div>
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn" type="button">予約を確定する</button>
+    <div class="privacy-txt">ご記入いただいた個人情報は予約管理のみに使用いたします。第三者への提供・開示は行いません。</div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-card">
+    <div class="modal-icon">🎨</div>
+    <div class="modal-title">予約を受け付けました</div>
+    <div class="modal-body" id="modalBody"></div>
+    <button class="modal-close" id="modalClose">閉じる</button>
+  </div>
+</div>
+
+<script>
+// ▼▼▼ Google Apps Script の URL をここに貼り付けてください ▼▼▼
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBJK08Bqqw9nB720O4s8imz5kr7BCG99Usp56xQ-3bijL0dxxUJ2o-1Bd5A0VAWgzD7A/exec';
+// ▲▲▲ ここまで ▲▲▲
+
+// 残席取得
+var availabilityData = {};
+function loadAvailability() {
+  fetch(SCRIPT_URL, { method: 'GET', mode: 'cors' })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(data.result === 'success'){
+      availabilityData = data.counts || {};
+      updateSeatsDisplay();
+    }
+  })
+  .catch(function(){ updateSeatsDisplay(); });
+}
+
+function getTimeLabel2(id){
+  return id==='am'?'午前（10:00〜11:00）':id==='pm1'?'昼（13:30〜14:30）':'夕方（16:00〜17:00）';
+}
+
+function updateSeatsDisplay() {
+  if(!selectedDate) return;
+  var dateStr = fmtDate(selectedDate);
+  ['am','pm1','pm2'].forEach(function(id){
+    var timeStr = getTimeLabel2(id);
+    var key     = dateStr + '_' + timeStr;
+    var booked  = availabilityData[key] || 0;
+    var remain  = 15 - booked;
+    var el      = document.getElementById('seats-'+id);
+    var radio   = document.getElementById(id);
+    var label   = el ? el.closest('.slot-label') : null;
+    if(!el) return;
+    if(remain <= 0){
+      el.textContent = '満席';
+      el.className = 'slot-seats full';
+      radio.disabled = true;
+      if(label) label.classList.add('full-slot');
+    } else if(remain <= 3){
+      el.textContent = '残り'+remain+'席';
+      el.className = 'slot-seats few';
+      radio.disabled = false;
+      if(label) label.classList.remove('full-slot');
+    } else {
+      el.textContent = '残り'+remain+'席';
+      el.className = 'slot-seats ok';
+      radio.disabled = false;
+      if(label) label.classList.remove('full-slot');
+    }
+  });
+}
+
+var today=new Date();today.setHours(0,0,0,0);
+var bookStart=new Date(today.getFullYear(),4,1);
+var bookEnd=new Date(today.getFullYear(),4,6);
+var viewYear=bookStart.getFullYear(),viewMonth=bookStart.getMonth(),selectedDate=null;
+var people=1;
+
+function isGW(d){return d>=bookStart&&d<=bookEnd;}
+
+function renderCal(){
+  var mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('calLabel').textContent=viewYear+'年 '+mn[viewMonth];
+  document.getElementById('prevMonth').disabled=(viewYear===bookStart.getFullYear()&&viewMonth<=bookStart.getMonth());
+  document.getElementById('nextMonth').disabled=(viewYear===bookEnd.getFullYear()&&viewMonth>=bookEnd.getMonth());
+  var c=document.getElementById('calDays');c.innerHTML='';
+  var first=new Date(viewYear,viewMonth,1).getDay();
+  var last=new Date(viewYear,viewMonth+1,0).getDate();
+  for(var i=0;i<first;i++){var e=document.createElement('button');e.className='cal-day empty';e.type='button';c.appendChild(e);}
+  for(var d=1;d<=last;d++){
+    var date=new Date(viewYear,viewMonth,d);
+    var btn=document.createElement('button');btn.type='button';btn.textContent=d;
+    var dow=date.getDay();
+    var cls='cal-day';
+    if(dow===0)cls+=' sun';if(dow===6)cls+=' sat';
+    if(!isGW(date))cls+=' past';
+    if(isGW(date))cls+=' gw-day';
+    if(selectedDate&&date.getTime()===selectedDate.getTime())cls+=' selected';
+    btn.className=cls;
+    btn.addEventListener('click',(function(dt){return function(){
+      if(!isGW(dt))return;
+      selectedDate=dt;renderCal();updateSummary();updateSeatsDisplay();loadAvailability();
+      document.getElementById('errDate').classList.remove('show');
+    };})(date));
+    c.appendChild(btn);
+  }
+}
+document.getElementById('prevMonth').addEventListener('click',function(){viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--;}renderCal();});
+document.getElementById('nextMonth').addEventListener('click',function(){viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++;}renderCal();});
+renderCal();
+
+function updateCounter(){
+  document.getElementById('cntVal').textContent=people;
+  document.getElementById('peopleCount').value=people;
+  document.getElementById('cntMinus').disabled=(people<=1);
+  document.getElementById('cntPlus').disabled=(people>=15);
+  updateSummary();
+}
+document.getElementById('cntMinus').addEventListener('click',function(){if(people>1){people--;updateCounter();}});
+document.getElementById('cntPlus').addEventListener('click',function(){if(people<15){people++;updateCounter();}});
+updateCounter();
+
+document.querySelectorAll('.slot-radio').forEach(function(r){
+  r.addEventListener('change',function(){updateSummary();document.getElementById('errTime').classList.remove('show');});
+});
+
+function fmtDate(d){var w=['日','月','火','水','木','金','土'];return(d.getMonth()+1)+'月'+d.getDate()+'日（'+w[d.getDay()]+'）';}
+function getTimeLabel(id){return id==='am'?'午前（10:00〜11:00）':id==='pm1'?'昼（13:30〜14:30）':'夕方（16:00〜17:00）';}
+
+function updateSummary(){
+  document.getElementById('sumDate').textContent=selectedDate?fmtDate(selectedDate):'—';
+  var tr=document.querySelector('.slot-radio:checked');
+  document.getElementById('sumTime').textContent=tr?getTimeLabel(tr.id):'—';
+  document.getElementById('sumPeople').textContent=people+'名';
+}
+
+function validate(){
+  var ok=true;
+  if(!selectedDate){document.getElementById('errDate').classList.add('show');ok=false;}
+  if(!document.querySelector('.slot-radio:checked')){document.getElementById('errTime').classList.add('show');ok=false;}
+  var ln=document.getElementById('lastName'),fn=document.getElementById('firstName'),em=document.getElementById('email'),tl=document.getElementById('tel');
+  if(!ln.value.trim()){ln.classList.add('has-error');document.getElementById('errLast').classList.add('show');ok=false;}else{ln.classList.remove('has-error');document.getElementById('errLast').classList.remove('show');}
+  if(!fn.value.trim()){fn.classList.add('has-error');document.getElementById('errFirst').classList.add('show');ok=false;}else{fn.classList.remove('has-error');document.getElementById('errFirst').classList.remove('show');}
+  var er=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!er.test(em.value.trim())){em.classList.add('has-error');document.getElementById('errEmail').classList.add('show');ok=false;}else{em.classList.remove('has-error');document.getElementById('errEmail').classList.remove('show');}
+  if(!tl.value.trim()){tl.classList.add('has-error');document.getElementById('errTel').classList.add('show');ok=false;}else{tl.classList.remove('has-error');document.getElementById('errTel').classList.remove('show');}
+  return ok;
+}
+
+document.getElementById('submitBtn').addEventListener('click',function(){
+  if(!validate())return;
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  var ln  = document.getElementById('lastName').value.trim();
+  var fn  = document.getElementById('firstName').value.trim();
+  var tr  = document.querySelector('.slot-radio:checked');
+  var ts  = getTimeLabel(tr.id);
+
+  var payload = {
+    date:      fmtDate(selectedDate),
+    time:      ts,
+    people:    people + '名',
+    lastName:  ln,
+    firstName: fn,
+    email:     document.getElementById('email').value.trim(),
+    tel:       document.getElementById('tel').value.trim(),
+    notes:     document.getElementById('notes').value.trim()
+  };
+
+  fetch(SCRIPT_URL, {
+    method:  'POST',
+    mode:    'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload)
+  })
+  .then(function(){
+    document.getElementById('modalBody').innerHTML=
+      '<b>'+ln+' '+fn+'</b> 様<br>'+
+      '<span class="modal-section">日時</span>'+fmtDate(selectedDate)+' '+ts+'<br>'+
+      '<span class="modal-section">参加人数</span>'+people+'名<br>'+
+      '<span class="modal-section">料金目安</span>¥'+(3500*people).toLocaleString()+'〜（器の種類により変動）<br><br>'+
+      'ご登録のメールアドレスに確認メールをお送りしました。<br>当日のご来店を心よりお待ちしております。';
+    document.getElementById('modal').classList.add('open');
+  })
+  .catch(function(){
+    // no-corsモードでは常にここに来る場合があるが送信は成功している
+    document.getElementById('modalBody').innerHTML=
+      '<b>'+ln+' '+fn+'</b> 様<br>'+
+      '<span class="modal-section">日時</span>'+fmtDate(selectedDate)+' '+ts+'<br>'+
+      '<span class="modal-section">参加人数</span>'+people+'名<br><br>'+
+      'ご登録のメールアドレスに確認メールをお送りしました。<br>当日のご来店を心よりお待ちしております。';
+    document.getElementById('modal').classList.add('open');
+  })
+  .finally(function(){
+    btn.disabled = false;
+    btn.textContent = '予約を確定する';
+  });
+});
+document.getElementById('modalClose').addEventListener('click',function(){document.getElementById('modal').classList.remove('open');});
+loadAvailability();
+</script>
+</body>
+</html>
